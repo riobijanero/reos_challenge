@@ -1,0 +1,49 @@
+name: CI
+on: 
+  pull_request:
+    branches: 
+      - master
+
+jobs: 
+  flutter_test:
+    name: Run flutter test and analyze
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2    
+        with:
+          flutter-version: "3.0.5"
+          channel: "stable"
+      - run: flutter clean
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+
+  build_appbundle:
+    name: Build Flutter (Android)
+    needs: [flutter_test]
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2    
+        with:
+          flutter-version: "3.0.5"
+          channel: "stable"
+      - run: flutter clean
+      - run: flutter pub get
+      - run: flutter build appbundle
+
+  # the ios Build is commented out because it requires a provisioning profile for this bunld id 
+  # build_ios:
+  #   name: Build Flutter (iOS)
+  #   needs: [flutter_test]
+  #   runs-on: macos-latest
+  #   steps: 
+  #     - uses: actions/checkout@v3
+  #     - uses: subosito/flutter-action@v2    
+  #       with:
+  #         flutter-version: "3.0.5"
+  #         channel: "stable"
+  #     - run: flutter clean
+  #     - run: flutter pub get
+  #     - run: flutter build ios
