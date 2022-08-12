@@ -95,6 +95,9 @@ class ThemeProvider extends ChangeNotifier {
     brightness: Brightness.dark,
     colorSchemeSeed: accentColorDark,
     backgroundColor: Colors.black,
+    navigationBarTheme: const NavigationBarThemeData(
+      labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+    ),
     dividerColor: const Color(0xffE1EBE8),
     secondaryHeaderColor: accentColorDark,
     primaryIconTheme: const IconThemeData(
