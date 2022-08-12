@@ -1,5 +1,3 @@
-# test_fvm
-
 ## Project
 Reos Coding Challenge 
 
@@ -11,7 +9,7 @@ Minimal Requirments:
 - Flutter stable, v3.0.5
 - Dart 2.17.6
 - DevTools 2.12.2
-- Xcode 13.2.1
+- Xcode 13.4.1
 - Android Studio Arctic Fox | 2020.3.1 Patch 4 
 - Cocoapods 1.11.2
 
@@ -25,7 +23,6 @@ Build tools
 Utilized Git Clients:
 - Git Kraken
 - VS Code
-
 
 
 
@@ -160,3 +157,20 @@ with version 3.0.5
 
 ## CI
 Github Actions are implemented for each Pull request. see [the workflow](.gihub/workflows/ci.yml)  
+
+
+
+
+#4 note
+when running the project, the following warning is thrown.
+This is a common warning at the moment caused by a library (floating search bar) that is not yet adapted to the changes in Flutter 3.
+For further info, please see:
+please see https://stackoverflow.com/questions/72239258/flutter-warning-operand-of-null-aware-operation-has-type-widgetsbinding
+
+```sh
+: Warning: Operand of null-aware operation '?.' has type 'WidgetsBinding' which excludes null.
+../…/util/util.dart:21
+- 'WidgetsBinding' is from 'package:flutter/src/widgets/binding.dart' ('../../../flutter/packages/flutter/lib/src/widgets/binding.dart').
+package:flutter/…/widgets/binding.dart:1
+  WidgetsBinding.instance?.addPostFrameCallback((_) => callback());
+```
