@@ -27,18 +27,16 @@ void main() {
   final ThemeProvider themeProvider = ThemeProvider();
 
   Widget createApp() => MaterialApp(
-        home: MaterialApp(
-          home: MultiProvider(
-            providers: [
-              ChangeNotifierProvider<BookProvider>.value(value: bookProvider),
-              ChangeNotifierProvider<ThemeProvider>.value(value: themeProvider),
-            ],
-            builder: (context, child) => Consumer<ThemeProvider>(
-              builder: (context, themeProvider, child) {
-                buildcontext = context;
-                return const HomeScreen();
-              },
-            ),
+        home: MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BookProvider>.value(value: bookProvider),
+            ChangeNotifierProvider<ThemeProvider>.value(value: themeProvider),
+          ],
+          builder: (context, child) => Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
+              buildcontext = context;
+              return const HomeScreen();
+            },
           ),
         ),
       );
