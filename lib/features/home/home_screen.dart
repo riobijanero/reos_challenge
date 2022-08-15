@@ -54,10 +54,16 @@ class _HomeScreenState extends State<HomeScreen> {
     _searchbarController.close();
   }
 
+  void onSearchResultTapped() {
+    _searchbarController.query = '';
+    _searchbarController.close();
+  }
+
   Widget buildSearchResulDropDownList(BuildContext context) {
+    if (_searchbarController.query.isEmpty) return const SizedBox();
     return SearchResultBuilder.buildList(
       context,
-      _searchbarController,
+      onSearchResultTapped,
     );
   }
 
