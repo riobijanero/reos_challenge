@@ -4,8 +4,6 @@ Reos Coding Challenge
 
 ## Software Toolchain
 
-Minimal Requirments:
-
 - Flutter stable, v3.0.5
 - Dart 2.17.6
 - DevTools 2.12.2
@@ -28,11 +26,11 @@ Utilized Git Clients:
 
 ## App Features 
 
-A Screencast [video](documentation/screenCast.mov) of the app is provided in the /documentation folder 
+A Screencast [video](documentation/screenCast.mov) of the app is provided in the [documentation/](documentation/) folder 
 
 ### Homescreen
 
-As shown ini the figma design, this screen shows a searchbar textfield in the top which accepts user input.
+As shown in the figma design, this screen shows a searchbar textfield in the top which accepts user input.
 
 By default, this screen shows a horizontally scrollable list of 'continue' items
 and a 'news' list of vertically scrollable items.
@@ -43,7 +41,8 @@ The news list items are interactive and open a simple detail screen of the respe
 
 ### Search
 
-the search returns book objects. The data is mocked using a FakeRepository to fetch, which may be replaced with a real Api class when a backend is provided. There is an artificial delay implementedTo further simulate an Api call. 
+the search returns book objects. The data is mocked using a FakeRepository to that fetches data asynchronously. There is an artificial delay implemented to further simulate an network request. 
+Since the FakeRepository impoements the Repository interface, it can be replaced with a real Api class when a backend is provided. 
 
 <img src="./documentation/searchresults_lightmode.png" style="width:400px;"/> 
 <img src="./documentation/searchresults_darkmode.png"  style="width:400px;"/>
@@ -72,13 +71,13 @@ a simple detail screen is implemented.
 
 
 
-### Theming
-Dark and light theme were implemented in theme_provider.dart. 
+## Theming
+Dark and light theme are implemented in theme_provider.dart. 
 The app defaults to the system settings of the phone. A theme icon in the top right of the home screen allows the user to toggle it.
 
 ## Navigation
-The project uses go_router which is an implementation of Nav2.
-This allows a deal of control over the uri for web use as well as deeplinking. This is implemented in app_router.dart
+The project uses the go_router library which is an implementation of Nav2.
+This allows a great deal of control over the uri for web use as well as deeplinking. This is implemented in app_router.dart
 
 
 ## Running the Project
@@ -123,7 +122,7 @@ for more info on build modes, please see (https://flutter.dev/docs/testing/build
 
 
 ## Testing
-### To cover the test pyramid, the following tests are provided:
+### To cover the test pyramid, the following test types are implemented:
 - unit tests
 - widget tests
 - integration tests
@@ -133,7 +132,7 @@ for the widget and unit tests please run
 $ flutter test
 ```
 
-Integration tests are  provided in the folder integraion_tests in the root directory
+Integration tests are provided in the folder[ integraion_test/](integration_test/app_test.dart) in the root directory
 
 
 ## State Management
@@ -141,14 +140,14 @@ This project uses the Provider Package with ChangeNotifier. For more details ple
 
 ## other dependencies
 
-for navigation 2: go_router: ^4.2.7
-for rendering SVGs: flutter_svg: ^1.1.3
-for rendering a floating searchbar: material_floating_search_bar: ^0.3.7
+- for navigation 2: go_router: ^4.2.7
+- for rendering SVGs: flutter_svg: ^1.1.3
+- for rendering a floating searchbar: material_floating_search_bar: ^0.3.7
 
 ## dev dependencies
-for integration tests: integration_test
-for mocking dependencies: mockito: ^5.3.0 (which needs build_runner: ^2.2.0)
-for mocking newtwork images: network_image_mock: ^2.1.1
+- for integration tests: integration_test
+- for mocking dependencies: mockito: ^5.3.0 (which needs build_runner: ^2.2.0)
+- for mocking newtwork images: network_image_mock: ^2.1.1
 ## Linting rules
 tapped_lints:
 
@@ -161,7 +160,7 @@ Github Actions are implemented for each Pull request. see [the workflow](.gihub/
 
 
 
-#4 note
+# note
 when running the project, the following warning is thrown.
 This is a common warning at the moment caused by a library (floating search bar) that is not yet adapted to the changes in Flutter 3.
 For further info, please see:
