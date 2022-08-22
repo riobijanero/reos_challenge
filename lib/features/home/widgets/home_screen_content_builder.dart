@@ -7,7 +7,6 @@ import 'package:reos_challenge/features/home/widgets/widgets.dart';
 
 class HomeScreenContentBuilder {
   static Widget builScreenContent(BuildContext context, double searchBarHeight) {
-    final searchBarMargin = MediaQuery.of(context).viewPadding.top;
     final BookProvider bookProvider = context.read<BookProvider>();
 
     if (bookProvider.isSearchShown) {
@@ -16,12 +15,9 @@ class HomeScreenContentBuilder {
       } else {
         return BookList(
           bookList: bookProvider.uiReesultList,
-          topPadding: searchBarMargin + searchBarHeight,
         );
       }
     }
-    return NewsContinueBooks(
-      topPadding: searchBarMargin + searchBarHeight,
-    );
+    return const NewsContinueBooks();
   }
 }

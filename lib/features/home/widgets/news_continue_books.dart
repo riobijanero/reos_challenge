@@ -11,11 +11,8 @@ import 'package:reos_challenge/features/book_search/widgets/widgets.dart';
 
 class NewsContinueBooks extends StatefulWidget {
   const NewsContinueBooks({
-    this.topPadding = 0,
     Key? key,
   }) : super(key: key);
-
-  final double topPadding;
 
   @override
   State<NewsContinueBooks> createState() => _NewsContinueBooksState();
@@ -25,7 +22,7 @@ class _NewsContinueBooksState extends State<NewsContinueBooks> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: widget.topPadding + 18, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 18, left: 20, right: 20),
       child: FutureBuilder(
         future: context.read<BookProvider>().getNewBookList(),
         builder: (context, snapshot) {

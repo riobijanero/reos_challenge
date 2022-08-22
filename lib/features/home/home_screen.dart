@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:provider/provider.dart';
 
 import 'package:reos_challenge/features/home/widgets/widgets.dart';
@@ -19,20 +18,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late FloatingSearchBarController _searchbarController;
+  final textEditController = TextEditingController();
   final double searchBarHeight = 48.0;
-
-  @override
-  void initState() {
-    super.initState();
-    _searchbarController = FloatingSearchBarController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _searchbarController.dispose();
-  }
 
   void onQueryChanged(String searchterm) {
     if (searchterm.isEmpty) {
@@ -45,25 +32,18 @@ class _HomeScreenState extends State<HomeScreen> {
   void onBookSearchSubmitted(String searchterm) {
     if (searchterm.isEmpty) return;
     context.read<BookProvider>().onBookSearchCompleted(searchterm);
-    _searchbarController.close();
   }
 
   void onAuthorSearchSubmitted(String searchterm) {
     if (searchterm.isEmpty) return;
     context.read<BookProvider>().onAuthorSearchCompleted(searchterm);
-    _searchbarController.close();
-  }
-
-  void onSearchResultTapped() {
-    _searchbarController.query = '';
-    _searchbarController.close();
   }
 
   Widget buildSearchResulDropDownList(BuildContext context) {
-    if (_searchbarController.query.isEmpty) return const SizedBox();
+    if (textEditController.text.isEmpty) return const SizedBox();
+    onQueryChanged(textEditController.text);
     return SearchResultBuilder.buildList(
       context,
-      onSearchResultTapped,
     );
   }
 
@@ -73,23 +53,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> buildSeachbarActionList(BuildContext context) {
     return [
-      FloatingSearchBarAction.icon(
-        showIfOpened: true,
-        onTap: (() => onBookSearchSubmitted(_searchbarController.query)),
-        icon: SvgIcon(
-          assetUrl: 'assets/svgs/search.svg',
-          color: colorScheme(context).primary,
-        ),
-      ),
-      FloatingSearchBarAction.icon(
-        showIfOpened: true,
-        onTap: (() => context.read<ThemeProvider>().toggleThemeMode()),
+      IconButton(
+        onPressed: () => context.read<ThemeProvider>().toggleThemeMode(),
         icon: Icon(
           key: const Key('themeIcon'),
           isLightTheme(context) ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
           color: colorScheme(context).primary,
         ),
       ),
+      IconButton(
+        onPressed: () => onBookSearchSubmitted(textEditController.text),
+        icon: SvgIcon(
+          assetUrl: 'assets/svgs/search.svg',
+          color: colorScheme(context).primary,
+        ),
+      )
     ];
   }
 
@@ -99,31 +77,14 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, bookProvider, child) {
         return Scaffold(
           key: const Key('homeScreenkey'),
-          body: FloatingSearchBar(
-            key: const Key('searchBarKey'),
-            controller: _searchbarController,
+          body: CustomFloatingSearchbar(
+            suffixiconList: buildSeachbarActionList(context),
+            textEditController: textEditController,
             body: builScreenContent(context),
-            builder: (context, transition) => buildSearchResulDropDownList(context),
-            onQueryChanged: (query) => onQueryChanged(query),
-            onSubmitted: (query) => onBookSearchSubmitted(query),
+            searchbarResult: () => buildSearchResulDropDownList(context),
             hint: 'Search for something',
             hintStyle: Theme.of(context).textTheme.labelMedium,
-            scrollPadding: const EdgeInsets.only(top: 0),
-            transitionDuration: const Duration(milliseconds: 500),
-            transitionCurve: Curves.easeInOut,
-            physics: const BouncingScrollPhysics(),
-            openAxisAlignment: 0.0,
-            width: MediaQuery.of(context).size.width,
-            transition: CircularFloatingSearchBarTransition(),
-            actions: buildSeachbarActionList(context),
-            queryStyle: Theme.of(context).textTheme.headline5,
-            iconColor: Theme.of(context).primaryColor,
-            elevation: 5,
-            backdropColor: Colors.black12,
-            backgroundColor: Theme.of(context).colorScheme.background,
-            border: !isLightTheme(context) ? BorderSide(color: colorScheme(context).outline) : null,
-            clearQueryOnClose: false,
-            height: searchBarHeight,
+            onSubmit: () => onAuthorSearchSubmitted(textEditController.text),
           ),
         );
       },

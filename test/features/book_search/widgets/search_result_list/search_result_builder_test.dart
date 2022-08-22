@@ -61,7 +61,6 @@ void main() {
 
         final Widget searchResultList = SearchResultBuilder.buildList(
           buildcontext,
-          () {},
         );
         expect(searchResultList, isNotNull);
         expect(searchResultList, isInstanceOf<Material>());
@@ -81,7 +80,6 @@ void main() {
 
         final Widget searchResultList = SearchResultBuilder.buildList(
           buildcontext,
-          () {},
         );
         final Widget column = ((searchResultList as Material).child as Padding).child!;
         expect(

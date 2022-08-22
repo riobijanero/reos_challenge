@@ -10,10 +10,9 @@ import 'package:reos_challenge/features/book_search/widgets/search_result_list/s
 class SearchResultBuilder {
   static Widget buildList(
     BuildContext context,
-    Function onResultselected,
   ) {
-    final List<Widget> bookResultList = _buildBookResultList(context, onResultselected);
-    final List<Widget> authorResultList = _buildAuthorResultList(context, onResultselected);
+    final List<Widget> bookResultList = _buildBookResultList(context);
+    final List<Widget> authorResultList = _buildAuthorResultList(context);
 
     return Material(
       key: const Key('searchResultKey'),
@@ -35,7 +34,6 @@ class SearchResultBuilder {
 
   static List<Widget> _buildBookResultList(
     BuildContext context,
-    Function onResultTapped,
   ) {
     final List<Widget> bookResultList = context.read<BookProvider>().bookSearchResultList.map((book) {
       return Column(
@@ -43,7 +41,6 @@ class SearchResultBuilder {
           SearchResultListItem(
             book: book,
             onTab: () {
-              onResultTapped();
               presentDetailScreen(context: context, book: book);
             },
           ),
@@ -57,7 +54,6 @@ class SearchResultBuilder {
 
   static List<Widget> _buildAuthorResultList(
     BuildContext context,
-    Function onResultTapped,
   ) {
     final List<Widget> authorResultList = context.read<BookProvider>().authorSearchResultList.map((book) {
       return Column(
@@ -65,7 +61,6 @@ class SearchResultBuilder {
           SearchResultListItem(
             book: book,
             onTab: () {
-              onResultTapped();
               presentDetailScreen(context: context, book: book);
             },
           ),
