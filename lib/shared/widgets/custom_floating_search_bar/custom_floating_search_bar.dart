@@ -29,13 +29,13 @@ class CustomFloatingSearchbar extends StatefulWidget {
 }
 
 class _CustomFloatingSearchbarState extends State<CustomFloatingSearchbar> {
-  Widget? children;
+  Widget? searchBarDropDown;
   bool isSearchBarResultsShown = false;
   static const double searchbarHeight = 50;
   @override
   void initState() {
     super.initState();
-    children = widget.searchbarResult();
+    searchBarDropDown = widget.searchbarResult();
 
     widget.textEditController.addListener(onValueChanged);
   }
@@ -47,7 +47,7 @@ class _CustomFloatingSearchbarState extends State<CustomFloatingSearchbar> {
   }
 
   void onValueChanged() {
-    children = widget.searchbarResult();
+    searchBarDropDown = widget.searchbarResult();
     isSearchBarResultsShown = true;
     setState(() {});
   }
@@ -86,9 +86,9 @@ class _CustomFloatingSearchbarState extends State<CustomFloatingSearchbar> {
                   hint: widget.hint,
                   hintStyle: widget.hintStyle,
                 ),
-                if (isSearchBarResultsShown && children != null)
+                if (isSearchBarResultsShown && searchBarDropDown != null)
                   Container(
-                    child: children,
+                    child: searchBarDropDown,
                   ),
               ],
             ),
